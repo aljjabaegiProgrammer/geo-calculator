@@ -1,8 +1,8 @@
-package com.aljjabaegi.geo.calculator.domain.footOfPerpendicular;
+package com.aljjabaegi.geo.calculator.domain.coordinateCalculation;
 
 import com.aljjabaegi.geo.calculator.common.response.ItemResponse;
-import com.aljjabaegi.geo.calculator.domain.footOfPerpendicular.record.FootOfPerpendicularRequest;
-import com.aljjabaegi.geo.calculator.domain.footOfPerpendicular.record.FootOfPerpendicularResponse;
+import com.aljjabaegi.geo.calculator.domain.coordinateCalculation.record.request.FootOfPerpendicularRequest;
+import com.aljjabaegi.geo.calculator.domain.coordinateCalculation.record.response.FootOfPerpendicularResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "[GEO-002] 좌표 계산", description = "[담당자 : GEONLEE]")
-public class FootOfPerpendicularController {
+public class CoordinateCalculationController {
 
-    private final FootOfPerpendicularService footOfPerpendicularService;
+    private final CoordinateCalculationService coordinateCalculationService;
 
     @PostMapping(value = "/v1/foot-of-perpendicular", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "선과 한 좌표의 수선의 발(직교하는 지점) 좌표와 선의 시작 좌표 부터 수선의 발 좌표까지의 길이(m) 조회", description = """
@@ -58,6 +58,6 @@ public class FootOfPerpendicularController {
                                      """
                     )}))
     public ResponseEntity<ItemResponse<FootOfPerpendicularResponse>> getDistanceBetweenPoints(@RequestBody FootOfPerpendicularRequest parameter) {
-        return footOfPerpendicularService.getFootOfPerpendicular(parameter);
+        return coordinateCalculationService.getFootOfPerpendicular(parameter);
     }
 }

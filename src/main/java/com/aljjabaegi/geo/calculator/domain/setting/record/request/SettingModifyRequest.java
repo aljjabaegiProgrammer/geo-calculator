@@ -1,4 +1,4 @@
-package com.aljjabaegi.geo.calculator.domain.setting.record;
+package com.aljjabaegi.geo.calculator.domain.setting.record.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;

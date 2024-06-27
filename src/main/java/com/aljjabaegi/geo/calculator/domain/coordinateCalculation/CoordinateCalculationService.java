@@ -1,9 +1,9 @@
-package com.aljjabaegi.geo.calculator.domain.footOfPerpendicular;
+package com.aljjabaegi.geo.calculator.domain.coordinateCalculation;
 
 import com.aljjabaegi.geo.calculator.common.calculator.GeoCalculatorImpl;
 import com.aljjabaegi.geo.calculator.common.response.ItemResponse;
-import com.aljjabaegi.geo.calculator.domain.footOfPerpendicular.record.FootOfPerpendicularRequest;
-import com.aljjabaegi.geo.calculator.domain.footOfPerpendicular.record.FootOfPerpendicularResponse;
+import com.aljjabaegi.geo.calculator.domain.coordinateCalculation.record.request.FootOfPerpendicularRequest;
+import com.aljjabaegi.geo.calculator.domain.coordinateCalculation.record.response.FootOfPerpendicularResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @RequiredArgsConstructor
-public class FootOfPerpendicularService {
+public class CoordinateCalculationService {
 
     private final GeoCalculatorImpl routeCalculator;
 

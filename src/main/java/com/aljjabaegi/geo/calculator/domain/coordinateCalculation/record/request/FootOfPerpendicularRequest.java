@@ -1,7 +1,7 @@
-package com.aljjabaegi.geo.calculator.domain.coordinateCalculation.record;
+package com.aljjabaegi.geo.calculator.domain.coordinateCalculation.record.request;
 
-import com.aljjabaegi.geo.calculator.domain.distance.record.Coordinate;
-import com.aljjabaegi.geo.calculator.domain.distance.record.LineCoordinate;
+import com.aljjabaegi.geo.calculator.common.calculator.record.Coordinate;
+import com.aljjabaegi.geo.calculator.common.calculator.record.LineCoordinate;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 

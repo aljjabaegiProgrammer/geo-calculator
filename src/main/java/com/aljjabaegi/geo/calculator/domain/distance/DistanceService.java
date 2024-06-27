@@ -5,8 +5,8 @@ import com.aljjabaegi.geo.calculator.common.exception.code.CommonErrorCode;
 import com.aljjabaegi.geo.calculator.common.exception.custom.ServiceException;
 import com.aljjabaegi.geo.calculator.common.response.ItemResponse;
 import com.aljjabaegi.geo.calculator.common.response.ItemsResponse;
-import com.aljjabaegi.geo.calculator.domain.distance.record.Coordinate;
-import com.aljjabaegi.geo.calculator.domain.distance.record.request.DistanceCalculationRequest;
+import com.aljjabaegi.geo.calculator.common.calculator.record.Coordinate;
+import com.aljjabaegi.geo.calculator.domain.distance.record.request.CoordinatesRequest;
 import com.aljjabaegi.geo.calculator.domain.distance.record.response.DistanceCalculationResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
@@ -25,7 +25,7 @@ public class DistanceService {
 
     private final GeoCalculatorImpl geoCalculator;
 
-    public ResponseEntity<ItemsResponse<DistanceCalculationResponse>> getDistanceBetweenPoints(DistanceCalculationRequest parameter) {
+    public ResponseEntity<ItemsResponse<DistanceCalculationResponse>> getDistanceBetweenPoints(CoordinatesRequest parameter) {
         List<DistanceCalculationResponse> distanceCalculationResponseList = geoCalculator.calculateDistanceBetweenCoordinates(parameter.coordinates());
         return ResponseEntity.ok()
                 .body(ItemsResponse.<DistanceCalculationResponse>builder()
@@ -36,7 +36,7 @@ public class DistanceService {
                         .build());
     }
 
-    public ResponseEntity<ItemResponse<Double>> getTotalDistance(DistanceCalculationRequest parameter) {
+    public ResponseEntity<ItemResponse<Double>> getTotalDistance(CoordinatesRequest parameter) {
         if (ObjectUtils.isEmpty(parameter)) {
             throw new ServiceException(CommonErrorCode.INVALID_PARAMETER, "거리를 계산할 좌표 정보가 존재하지 않습니다.");
         }

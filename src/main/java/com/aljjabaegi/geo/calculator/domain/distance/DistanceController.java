@@ -2,7 +2,7 @@ package com.aljjabaegi.geo.calculator.domain.distance;
 
 import com.aljjabaegi.geo.calculator.common.response.ItemResponse;
 import com.aljjabaegi.geo.calculator.common.response.ItemsResponse;
-import com.aljjabaegi.geo.calculator.domain.distance.record.request.DistanceCalculationRequest;
+import com.aljjabaegi.geo.calculator.domain.distance.record.request.CoordinatesRequest;
 import com.aljjabaegi.geo.calculator.domain.distance.record.response.DistanceCalculationResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -61,7 +61,7 @@ public class DistanceController {
                                     }
                                     """
                     )}))
-    public ResponseEntity<ItemsResponse<DistanceCalculationResponse>> getDistanceBetweenPoints(@RequestBody @Valid DistanceCalculationRequest parameter) {
+    public ResponseEntity<ItemsResponse<DistanceCalculationResponse>> getDistanceBetweenPoints(@RequestBody @Valid CoordinatesRequest parameter) {
         return calculatorService.getDistanceBetweenPoints(parameter);
     }
 
@@ -93,7 +93,7 @@ public class DistanceController {
                                     }
                                     """
                     )}))
-    public ResponseEntity<ItemResponse<Double>> getTotalDistance(@RequestBody @Valid DistanceCalculationRequest parameter) {
+    public ResponseEntity<ItemResponse<Double>> getTotalDistance(@RequestBody @Valid CoordinatesRequest parameter) {
         return calculatorService.getTotalDistance(parameter);
     }
 }

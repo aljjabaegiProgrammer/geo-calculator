@@ -1,6 +1,6 @@
-package com.aljjabaegi.geo.calculator.domain.summary.record;
+package com.aljjabaegi.geo.calculator.domain.summary.record.response;
 
-import com.aljjabaegi.geo.calculator.domain.distance.record.Coordinate;
+import com.aljjabaegi.geo.calculator.common.calculator.record.Coordinate;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 

@@ -2,8 +2,8 @@ package com.aljjabaegi.geo.calculator.domain.setting;
 
 import com.aljjabaegi.geo.calculator.common.calculator.GeoCalculatorImpl;
 import com.aljjabaegi.geo.calculator.common.response.ItemResponse;
-import com.aljjabaegi.geo.calculator.domain.setting.record.SettingModifyRequest;
-import com.aljjabaegi.geo.calculator.domain.setting.record.SettingModifyResponse;
+import com.aljjabaegi.geo.calculator.domain.setting.record.request.SettingModifyRequest;
+import com.aljjabaegi.geo.calculator.domain.setting.record.response.SettingModifyResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
