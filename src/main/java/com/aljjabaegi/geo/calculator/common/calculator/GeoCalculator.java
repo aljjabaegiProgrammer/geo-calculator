@@ -1,12 +1,11 @@
 package com.aljjabaegi.geo.calculator.common.calculator;
 
 
-import com.aljjabaegi.geo.calculator.domain.distance.record.Coordinate;
-import com.aljjabaegi.geo.calculator.domain.distance.record.LineCoordinate;
-import com.aljjabaegi.geo.calculator.domain.distance.record.request.PointDistanceRequest;
-import com.aljjabaegi.geo.calculator.domain.distance.record.response.CalculatedDistanceResponse;
+import com.aljjabaegi.geo.calculator.common.calculator.record.Coordinate;
+import com.aljjabaegi.geo.calculator.common.calculator.record.LineCoordinate;
 import com.aljjabaegi.geo.calculator.domain.distance.record.response.DistanceCalculationResponse;
-import com.aljjabaegi.geo.calculator.domain.footOfPerpendicular.record.FootOfPerpendicularResponse;
+import com.aljjabaegi.geo.calculator.domain.coordinateCalculation.record.response.FootOfPerpendicularResponse;
+import com.aljjabaegi.geo.calculator.domain.summary.record.response.BboxResponse;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -65,12 +64,9 @@ public interface GeoCalculator {
     //선의 버텍스 정보와 선 위의 점 정보를 받아 선 위의 점까지의 거리를 구한다.
     Double getDistanceToPontOnLine(Coordinate pointCoordinate, List<LineCoordinate> lineVertexes);
 
-    //선의 버텍스 정보를 받아 선의 길이를 구한다.
-    Double getLengthOfLine(LineCoordinate lineVertexes);
-
-    //노선 지점들 간 거리를 계산 한다.
-    CalculatedDistanceResponse getDistanceBetweenRoutePoints(List<PointDistanceRequest> pointList);
-
-    //지점들간의 중심 점을 구한다.
+    //좌표들의 중심 점을 구한다.
     Coordinate getCenterCoordinate(List<Coordinate> coordinates);
+
+    //좌표들의 최대 최소 좌표를 구한다.
+    BboxResponse getBboxCoordinate(List<Coordinate> coordinates);
 }

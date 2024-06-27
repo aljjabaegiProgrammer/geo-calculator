@@ -1,4 +1,4 @@
-package com.aljjabaegi.geo.calculator.domain.footOfPerpendicular.record;
+package com.aljjabaegi.geo.calculator.domain.coordinateCalculation.record;
 
 import com.aljjabaegi.geo.calculator.domain.distance.record.Coordinate;
 import io.swagger.v3.oas.annotations.media.Schema;

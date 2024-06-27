@@ -2,14 +2,13 @@ package com.aljjabaegi.geo.calculator.common.calculator;
 
 import com.aljjabaegi.geo.calculator.common.exception.code.CommonErrorCode;
 import com.aljjabaegi.geo.calculator.common.exception.custom.ServiceException;
-import com.aljjabaegi.geo.calculator.domain.distance.record.Coordinate;
-import com.aljjabaegi.geo.calculator.domain.distance.record.LineCoordinate;
-import com.aljjabaegi.geo.calculator.domain.distance.record.request.PointDistanceRequest;
-import com.aljjabaegi.geo.calculator.domain.distance.record.response.CalculatedDistanceResponse;
+import com.aljjabaegi.geo.calculator.domain.coordinateCalculation.record.response.FootOfPerpendicularResponse;
+import com.aljjabaegi.geo.calculator.common.calculator.record.Coordinate;
+import com.aljjabaegi.geo.calculator.common.calculator.record.LineCoordinate;
 import com.aljjabaegi.geo.calculator.domain.distance.record.response.DistanceCalculationResponse;
-import com.aljjabaegi.geo.calculator.domain.footOfPerpendicular.record.FootOfPerpendicularResponse;
-import com.aljjabaegi.geo.calculator.domain.setting.record.SettingModifyRequest;
-import com.aljjabaegi.geo.calculator.domain.setting.record.SettingModifyResponse;
+import com.aljjabaegi.geo.calculator.domain.setting.record.request.SettingModifyRequest;
+import com.aljjabaegi.geo.calculator.domain.setting.record.response.SettingModifyResponse;
+import com.aljjabaegi.geo.calculator.domain.summary.record.response.BboxResponse;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Component;
 
@@ -35,10 +34,10 @@ public class GeoCalculatorImpl implements GeoCalculator {
 
     //계산에 필요한 세팅 값을 설정
     public SettingModifyResponse modifySettings(SettingModifyRequest parameter) {
-        if(!ObjectUtils.isEmpty(parameter.distanceScale())) {
+        if (!ObjectUtils.isEmpty(parameter.distanceScale())) {
             this.distanceScale = parameter.distanceScale();
         }
-        if(!ObjectUtils.isEmpty(parameter.coordinateScale())) {
+        if (!ObjectUtils.isEmpty(parameter.coordinateScale())) {
             this.coordinateScale = parameter.coordinateScale();
         }
         return SettingModifyResponse.builder()
@@ -329,17 +328,54 @@ public class GeoCalculatorImpl implements GeoCalculator {
     }
 
     @Override
-    public Double getLengthOfLine(LineCoordinate lineVertexes) {
-        return null;
-    }
-
-    @Override
-    public CalculatedDistanceResponse getDistanceBetweenRoutePoints(List<PointDistanceRequest> pointList) {
-        return null;
-    }
-
-    @Override
     public Coordinate getCenterCoordinate(List<Coordinate> coordinates) {
-        return null;
+        if (ObjectUtils.isEmpty(coordinates)) {
+            throw new ServiceException(CommonErrorCode.INVALID_PARAMETER, "중심 좌표를 계산할 좌표 정보가 존재하지 않습니다.");
+        }
+        BigDecimal sumLongitude = BigDecimal.ZERO, sumLatitude = BigDecimal.ZERO;
+        for (Coordinate coordinate : coordinates) {
+            sumLongitude = sumLongitude.add(BigDecimal.valueOf(coordinate.longitude()));
+            sumLatitude = sumLatitude.add(BigDecimal.valueOf(coordinate.latitude()));
+        }
+        return Coordinate.builder()
+                .longitude(sumLongitude.divide(BigDecimal.valueOf(coordinates.size()), MATH_CONTEXT)
+                        .setScale(this.coordinateScale, RoundingMode.HALF_UP)
+                        .doubleValue())
+                .latitude(sumLatitude.divide(BigDecimal.valueOf(coordinates.size()), MATH_CONTEXT)
+                        .setScale(this.coordinateScale, RoundingMode.HALF_UP)
+                        .doubleValue())
+                .build();
+    }
+
+    @Override
+    public BboxResponse getBboxCoordinate(List<Coordinate> coordinates) {
+        double maxLongitude = Double.MIN_VALUE;
+        double minLongitude = Double.MAX_VALUE;
+        double maxLatitude = Double.MIN_VALUE;
+        double minLatitude = Double.MAX_VALUE;
+        for (Coordinate coordinate : coordinates) {
+            if (coordinate.longitude() < minLongitude) {
+                minLongitude = coordinate.longitude();
+            }
+            if (coordinate.longitude() > maxLongitude) {
+                maxLongitude = coordinate.longitude();
+            }
+            if (coordinate.latitude() < minLatitude) {
+                minLatitude = coordinate.latitude();
+            }
+            if (coordinate.latitude() > maxLatitude) {
+                maxLatitude = coordinate.latitude();
+            }
+        }
+        return BboxResponse.builder()
+                .maxCoordinate(Coordinate.builder()
+                        .longitude(maxLongitude)
+                        .latitude(maxLatitude)
+                        .build())
+                .minCoordinate(Coordinate.builder()
+                        .longitude(minLongitude)
+                        .latitude(minLatitude)
+                        .build())
+                .build();
     }
 }
